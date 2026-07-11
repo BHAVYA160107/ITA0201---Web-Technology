@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Greenfield College - Multi-Page Website (Single File)</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f7; color: #2c3e50; }
+  header { background: #2c3e50; color: #fff; padding: 20px; text-align: center; }
+  nav { background: #34495e; text-align: center; }
+  nav a { color: #fff; text-decoration: none; display: inline-block; padding: 14px 20px; cursor: pointer; }
+  nav a:hover, nav a.active { background: #1abc9c; }
+  main { max-width: 900px; margin: 30px auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  section { display: none; }
+  section.active { display: block; }
+  footer { text-align: center; padding: 15px; color: #7f8c8d; font-size: 0.9em; }
+  table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+  th, td { border: 1px solid #bdc3c7; padding: 8px; text-align: center; }
+  th { background: #2c3e50; color: #fff; }
+  input, select, textarea { width: 100%; padding: 8px; margin: 6px 0 14px; box-sizing: border-box; }
+  button { padding: 8px 20px; background: #1abc9c; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  iframe { border: 2px solid #34495e; border-radius: 6px; }
+  img { border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Greenfield College</h1>
+  <p>Empowering Minds, Building Futures</p>
+</header>
+
+<nav>
+  <a onclick="showPage('home')" class="active" data-page="home">Home</a>
+  <a onclick="showPage('about')" data-page="about">About</a>
+  <a onclick="showPage('courses')" data-page="courses">Courses</a>
+  <a onclick="showPage('registration')" data-page="registration">Registration</a>
+  <a onclick="showPage('contact')" data-page="contact">Contact</a>
+</nav>
+
+<main>
+
+  <!-- HOME PAGE -->
+  <section id="home" class="active">
+    <h2>Welcome to Greenfield College</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Programming_language_logos.png/400px-Programming_language_logos.png"
+         alt="College campus illustration" width="400">
+    <p>Greenfield College has been a center of academic excellence for over 25 years,
+    offering undergraduate and postgraduate programs across Science, Arts, and Engineering.</p>
+    <h3>Why Choose Us?</h3>
+    <ul>
+      <li>Experienced faculty and modern laboratories</li>
+      <li>Industry-aligned curriculum</li>
+      <li>Active placement and internship cell</li>
+      <li>Vibrant campus life with clubs and events</li>
+    </ul>
+  </section>
+
+  <!-- ABOUT PAGE -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Founded in 1999, Greenfield College is an autonomous institution affiliated
+    to the State University, dedicated to providing quality education in Science,
+    Commerce, Arts, and Engineering disciplines.</p>
+    <h3>Our Mission</h3>
+    <p>To nurture responsible, skilled, and innovative individuals who contribute
+    positively to society and industry.</p>
+    <h3>Our Vision</h3>
+    <p>To be recognized as a center of excellence in higher education, research,
+    and holistic student development.</p>
+  </section>
+
+  <!-- COURSES PAGE -->
+  <section id="courses">
+    <h2>Courses Offered</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <caption>Undergraduate Programs</caption>
+      <tr><th>Course</th><th>Duration</th><th>Seats</th><th>Eligibility</th></tr>
+      <tr><td>B.Sc Computer Science</td><td>3 Years</td><td>60</td><td>10+2 with Mathematics</td></tr>
+      <tr><td>B.Sc Information Technology</td><td>3 Years</td><td>60</td><td>10+2 with Mathematics</td></tr>
+      <tr><td>B.Com General</td><td>3 Years</td><td>80</td><td>10+2 any stream</td></tr>
+      <tr><td>B.A. English Literature</td><td>3 Years</td><td>50</td><td>10+2 any stream</td></tr>
+    </table>
+  </section>
+
+  <!-- REGISTRATION PAGE -->
+  <section id="registration">
+    <h2>Admission Registration Form</h2>
+    <form onsubmit="return handleRegister(event)">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+
+      <label for="course">Preferred Course</label>
+      <select id="course">
+        <option value="cs">B.Sc Computer Science</option>
+        <option value="it">B.Sc Information Technology</option>
+        <option value="com">B.Com General</option>
+        <option value="eng">B.A. English Literature</option>
+      </select>
+
+      <label for="message">Message / Query</label>
+      <textarea id="message" rows="4"></textarea>
+
+      <button type="submit">Submit Application</button>
+    </form>
+    <p id="regResult"></p>
+  </section>
+
+  <!-- CONTACT PAGE -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p><strong>Address:</strong> 123 College Road, Greenfield City, TN, India</p>
+    <p><strong>Phone:</strong> +91 98765 43210</p>
+    <p><strong>Email:</strong> info@greenfieldcollege.edu</p>
+    <h3>Find Us</h3>
+    <iframe
+      src="https://www.openstreetmap.org/export/embed.html?bbox=80.60%2C13.05%2C80.70%2C13.15&layer=mapnik"
+      width="100%" height="300" title="College location map">
+    </iframe>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 Greenfield College. All rights reserved.</footer>
+
+<script>
+  function showPage(pageId) {
+    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.querySelector('nav a[data-page="' + pageId + '"]').classList.add('active');
+  }
+  function handleRegister(e) {
+    e.preventDefault();
+    document.getElementById('regResult').innerText = 'Thank you! Your application has been received.';
+    return false;
+  }
+</script>
+
+</body>
+</html>

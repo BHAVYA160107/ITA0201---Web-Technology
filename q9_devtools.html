@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Q9 - Observing Internet Protocols Using Browser DevTools</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<style>
+  body { font-family: Arial, sans-serif; margin: 30px; line-height: 1.6; }
+  #log { background: #ecf0f1; padding: 10px; margin-top: 15px; border-radius: 6px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+  th, td { border: 1px solid #bdc3c7; padding: 8px; text-align: left; font-size: 0.9em; }
+  th { background: #2c3e50; color: #fff; }
+  button { padding: 8px 18px; background: #1abc9c; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h1>Observing Internet Protocols Using DevTools</h1>
+
+<h2>Step 1: Generate Network Activity</h2>
+<p>Open <strong>DevTools &rarr; Network tab</strong> (press F12), then reload this page
+and click the button below to trigger extra requests.</p>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Programming_language_logos.png/240px-Programming_language_logos.png"
+     alt="sample image" width="240">
+
+<button onclick="loadData()">Trigger an AJAX Request</button>
+<div id="log">AJAX result will appear here.</div>
+
+<h2>Step 2: Record Your Observations</h2>
+<table>
+  <tr>
+    <th>Request (file name)</th>
+    <th>URL</th>
+    <th>Protocol</th>
+    <th>Method</th>
+    <th>Status Code</th>
+    <th>Type</th>
+    <th>Size</th>
+    <th>Time</th>
+  </tr>
+  <tr><td>this page (html)</td><td></td><td></td><td></td><td></td><td>document</td><td></td><td></td></tr>
+  <tr><td>normalize.min.css</td><td></td><td></td><td></td><td></td><td>stylesheet</td><td></td><td></td></tr>
+  <tr><td>240px-...png</td><td></td><td></td><td></td><td></td><td>image</td><td></td><td></td></tr>
+  <tr><td>users/1 (after button click)</td><td></td><td></td><td></td><td></td><td>xhr/fetch</td><td></td><td></td></tr>
+</table>
+<p><em>Fill in the blank cells above from your own DevTools Network tab session.</em></p>
+
+<h2>Key Points to Note</h2>
+<ul>
+  <li><strong>URL</strong>: full address of the resource being fetched.</li>
+  <li><strong>Protocol</strong>: whether the resource was fetched over http or https.</li>
+  <li><strong>Method</strong>: almost all these are GET requests.</li>
+  <li><strong>Status Code</strong>: 200 = success, 304 = cached, 404 = not found.</li>
+  <li><strong>Type</strong>: document, stylesheet, script, image, xhr/fetch, font.</li>
+  <li><strong>Size</strong>: transferred vs actual size (note if "from cache").</li>
+  <li><strong>Time</strong>: how long each request took.</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>Loading a single web page triggers multiple separate HTTP/HTTPS requests —
+for the HTML document, external CSS, image, and API resources — each with its
+own protocol, method, and response status, all visible in the Network tab.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+  function loadData() {
+    fetch('https://jsonplaceholder.typicode.com/users/1')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('log').innerText =
+          'Fetched user: ' + data.name + ' (' + data.email + ')';
+      });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Q5 - GET and POST Methods (Single File)</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; }
+  .form-box { max-width: 400px; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+  .get-box { border: 2px solid #2980b9; }
+  .post-box { border: 2px solid #c0392b; }
+  input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+  button { padding: 8px 20px; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  .get-box button { background: #2980b9; }
+  .post-box button { background: #c0392b; }
+  #result { padding: 15px; background: #ecf0f1; border-radius: 6px; max-width: 500px; }
+</style>
+</head>
+<body>
+
+<h1>Demonstrating GET and POST Methods</h1>
+
+<div class="form-box get-box">
+  <h2>Form using GET Method</h2>
+  <form id="getForm">
+    <label for="guser">Username:</label>
+    <input type="text" id="guser" required>
+    <label for="gpass">Password:</label>
+    <input type="text" id="gpass" required>
+    <button type="submit">Submit (GET)</button>
+  </form>
+</div>
+
+<div class="form-box post-box">
+  <h2>Form using POST Method</h2>
+  <form id="postForm">
+    <label for="puser">Username:</label>
+    <input type="text" id="puser" required>
+    <label for="ppass">Password:</label>
+    <input type="text" id="ppass" required>
+    <button type="submit">Submit (POST)</button>
+  </form>
+</div>
+
+<h2>Result / Observation</h2>
+<div id="result">Submit either form above to see the difference.</div>
+
+<script>
+  // GET FORM: simulate real GET behavior by appending data to the URL (query string)
+  document.getElementById('getForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const user = document.getElementById('guser').value;
+    const pass = document.getElementById('gpass').value;
+
+    // Build a query string, just like a real GET form would, and update the address bar
+    const query = '?username=' + encodeURIComponent(user) + '&password=' + encodeURIComponent(pass);
+    history.pushState({}, '', query);
+
+    document.getElementById('result').innerHTML =
+      '<strong>Method used: GET</strong><br>' +
+      'Data sent: username=' + user + ', password=' + pass + '<br>' +
+      'Notice the browser address bar now shows the data in the URL: <code>' +
+      window.location.pathname + query + '</code><br>' +
+      'This is because GET appends form data as a visible query string.';
+  });
+
+  // POST FORM: simulate real POST behavior - the URL is left untouched
+  document.getElementById('postForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const user = document.getElementById('puser').value;
+    const pass = document.getElementById('ppass').value;
+
+    // Reset the URL to plain page (no query string) to show POST hides data from the URL
+    history.pushState({}, '', window.location.pathname);
+
+    document.getElementById('result').innerHTML =
+      '<strong>Method used: POST</strong><br>' +
+      'Data sent: username=' + user + ', password=' + pass + '<br>' +
+      'Notice the address bar shows <code>' + window.location.pathname +
+      '</code> with no query string.<br>' +
+      'This is because POST sends form data inside the HTTP request body, ' +
+      'not in the URL, so it stays hidden from the address bar and browser history.';
+  });
+</script>
+
+</body>
+</html>
