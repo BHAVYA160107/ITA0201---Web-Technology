@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ridgeway University — Events Desk</title>
+
+<!-- External stylesheet: primary site design (Mandatory CSS Requirement B.1) -->
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<!--
+  INTERNAL CSS DEMONSTRATION (Mandatory CSS Requirement B.1)
+  Rule set below deliberately kept internal, for the Hero / "counter-slip" section only,
+  to show that a page-specific block can be scoped without touching the external sheet.
+-->
+<style>
+  .hero {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(232,163,61,0.16), transparent 45%),
+      linear-gradient(135deg, #16233d 0%, #1b2a4a 55%, #223258 100%);
+  }
+  .hero__stamp {
+    transform: rotate(-8deg);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="top">
+  <div class="site-header__inner">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">RU</span>
+      <div class="brand__text">
+        <span class="brand__name">Ridgeway University</span>
+        <span class="brand__portal">Events Desk — Registration Portal</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+
+    <!-- Group + descendant + child selectors are used on this nav in style.css -->
+    <nav class="primary-nav" id="primaryNav" aria-label="Primary">
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#catalogue">Events</a></li>
+        <li><a href="#register">Register</a></li>
+        <li><a href="#footer">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__inner">
+    <p class="hero__eyebrow">Odyssey Week · 18–24 September</p>
+    <h1 class="hero__title">One counter.<br>Every event on campus.</h1>
+    <p class="hero__sub">
+      Hackathons, cultural nights, placement drives and workshops —
+      claim your slot the way you'd claim a ticket at the events desk.
+      No queues, no duplicate forms.
+    </p>
+
+    <!-- Inline CSS demonstration (Mandatory CSS Requirement B.1) — one small element only -->
+    <a href="#register" class="btn btn--primary" style="letter-spacing:0.02em;">
+      Get your slip →
+    </a>
+
+    <div class="hero__stamp" aria-hidden="true">REGISTRATIONS<br>OPEN</div>
+  </div>
+</section>
+
+<!-- ============ EVENT CATALOGUE ============ -->
+<section class="catalogue" id="catalogue">
+  <div class="section-head">
+    <h2>Today's counter</h2>
+    <p>Four desks, four kinds of Odyssey Week energy. Pick one — or all.</p>
+  </div>
+
+  <div class="ticket-grid">
+
+    <!-- Event card 1 -->
+    <article class="ticket ticket--tech">
+      <span class="ticket__status ticket__status--open">Open</span>
+      <div class="ticket__body">
+        <p class="ticket__category">Technical</p>
+        <h3 class="ticket__title">CodeForge Hackathon</h3>
+        <p class="ticket__meta">📅 19 Sept · 9:00 AM – 9:00 PM</p>
+        <p class="ticket__meta">📍 Innovation Block, Lab 3</p>
+        <p class="ticket__desc">24-hour build sprint for teams of four. Bring a laptop, an idea, and enough coffee tolerance.</p>
+      </div>
+      <div class="ticket__stub">
+        <a href="#register" class="btn btn--ghost">Reserve seat</a>
+      </div>
+    </article>
+
+    <!-- Event card 2 -->
+    <article class="ticket ticket--culture">
+      <span class="ticket__status ticket__status--open">Open</span>
+      <div class="ticket__body">
+        <p class="ticket__category">Cultural</p>
+        <h3 class="ticket__title">Rangmanch Night</h3>
+        <p class="ticket__meta">📅 20 Sept · 6:30 PM – 9:30 PM</p>
+        <p class="ticket__meta">📍 Amphitheatre Lawn</p>
+        <p class="ticket__desc">An open-stage evening of music, spoken word and dance from every department.</p>
+      </div>
+      <div class="ticket__stub">
+        <a href="#register" class="btn btn--ghost">Reserve seat</a>
+      </div>
+    </article>
+
+    <!-- Event card 3 -->
+    <article class="ticket ticket--placement">
+      <span class="ticket__status ticket__status--filling">Filling fast</span>
+      <div class="ticket__body">
+        <p class="ticket__category">Placement</p>
+        <h3 class="ticket__title">Industry Connect Drive</h3>
+        <p class="ticket__meta">📅 22 Sept · 10:00 AM – 4:00 PM</p>
+        <p class="ticket__meta">📍 Placement Cell, Block C</p>
+        <p class="ticket__desc">Pre-placement talks and mock interviews with recruiters from twelve partner firms.</p>
+      </div>
+      <div class="ticket__stub">
+        <a href="#register" class="btn btn--ghost">Reserve seat</a>
+      </div>
+    </article>
+
+    <!-- Event card 4 -->
+    <article class="ticket ticket--sports">
+      <span class="ticket__status ticket__status--closed">Closed</span>
+      <div class="ticket__body">
+        <p class="ticket__category">Sports</p>
+        <h3 class="ticket__title">Ridgeway 5-a-Side Cup</h3>
+        <p class="ticket__meta">📅 21 Sept · 7:00 AM – 12:00 PM</p>
+        <p class="ticket__meta">📍 Main Ground</p>
+        <p class="ticket__desc">Inter-department football knockout. Team sheets closed after reaching capacity.</p>
+      </div>
+      <div class="ticket__stub">
+        <a href="#" class="btn btn--ghost btn--disabled" aria-disabled="true">Seats full</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ REGISTRATION FORM ============ -->
+<section class="register" id="register">
+  <div class="register__panel">
+    <div class="section-head section-head--left">
+      <h2>Fill your slip</h2>
+      <p>One form, any event. We'll route it to the right desk.</p>
+    </div>
+
+    <form class="register-form" novalidate>
+      <div class="field">
+        <label for="fullName">Full name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="As per college ID" required>
+      </div>
+
+      <div class="field">
+        <label for="regNo">Register number</label>
+        <input type="text" id="regNo" name="regNo" placeholder="e.g. 21ITA0245" required>
+      </div>
+
+      <div class="field">
+        <label for="dept">Department</label>
+        <select id="dept" name="dept" required>
+          <option value="" disabled selected>Select department</option>
+          <option>Information Technology</option>
+          <option>Computer Science</option>
+          <option>Electronics & Communication</option>
+          <option>Mechanical Engineering</option>
+          <option>Commerce & Management</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@ridgeway.edu" required>
+      </div>
+
+      <div class="field field--wide">
+        <label for="event">Event</label>
+        <select id="event" name="event" required>
+          <option value="" disabled selected>Choose an event</option>
+          <option>CodeForge Hackathon</option>
+          <option>Rangmanch Night</option>
+          <option>Industry Connect Drive</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn--primary field--wide">Submit registration</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="footer">
+  <div class="site-footer__inner">
+    <div class="footer-col">
+      <span class="brand__mark brand__mark--footer" aria-hidden="true">RU</span>
+      <p>Ridgeway University<br>Events Desk, Student Activity Centre</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>events@ridgeway.edu</p>
+      <p>+91 98765 43210</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Useful links</h4>
+      <ul class="footer-links">
+        <li><a href="#catalogue">Event catalogue</a></li>
+        <li><a href="#register">Registration form</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="site-footer__copy">© 2026 Ridgeway University. Built for Odyssey Week.</p>
+</footer>
+
+<script>
+  // Minimal, unobtrusive: toggles mobile nav only. No frameworks, no build step.
+  const navToggle = document.getElementById('navToggle');
+  const primaryNav = document.getElementById('primaryNav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = primaryNav.classList.toggle('is-open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>
+</body>
+</html>

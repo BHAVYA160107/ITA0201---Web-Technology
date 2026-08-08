@@ -1,0 +1,592 @@
+/* ============================================================
+   RIDGEWAY UNIVERSITY — EVENTS DESK
+   External stylesheet (Mandatory CSS Requirement B.1: main site design)
+   ============================================================
+
+   DESIGN TOKENS
+   Colour
+     --ink        #16233D   deep academic navy — headers, nav, dark surfaces
+     --ink-soft   #1B2A4A   secondary navy — gradients, hover states
+     --paper      #F5F3EE   warm paper background
+     --paper-dim  #EAE6DB   card / panel background
+     --marigold   #E8A33D   accent — CTAs, active states, ticket perforation
+     --leaf       #3C8B6D   "open" status
+     --amber      #C9862B   "filling fast" status
+     --rust       #C1443C   "closed" status
+     --text       #202B3C   body text
+     --text-mute  #5B6472   secondary text
+
+   Type
+     Display : "Fraunces"   — headings, ticket titles (editorial, a little formal)
+     Body    : "Work Sans"  — paragraphs, labels, nav
+     Mono    : "JetBrains Mono" — meta data (dates, times, register numbers)
+     -> mono for "ticket data" reinforces the events-desk / counter-slip idea
+
+   Signature element
+     Event cards are cut and perforated like ticket stubs (see .ticket),
+     tying the visual language back to "registration" as a literal act of
+     claiming a ticket at a desk.
+   ============================================================ */
+
+/* ---------- 1. RESET & BASE ---------- */
+* {
+  box-sizing: border-box; /* deliberately overridden to border-box site-wide;
+                              see technical note for the content-box comparison */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Work Sans", "Segoe UI", sans-serif;
+  background: var(--paper, #f5f3ee);
+  color: #202b3c;
+  line-height: 1.55;
+  overflow-x: hidden; /* guarantees no horizontal scroll on mobile */
+}
+
+:root {
+  --ink: #16233d;
+  --ink-soft: #1b2a4a;
+  --paper: #f5f3ee;
+  --paper-dim: #eae6db;
+  --marigold: #e8a33d;
+  --leaf: #3c8b6d;
+  --amber: #c9862b;
+  --rust: #c1443c;
+  --text: #202b3c;
+  --text-mute: #5b6472;
+}
+
+h1, h2, h3 {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--ink);
+  line-height: 1.12;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ---------- 2. BUTTONS (class selector + pseudo-classes) ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;                                  /* required property: cursor */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* required property: transition */
+  border: 1px solid transparent;
+}
+
+.btn--primary {
+  background: var(--marigold);
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(232, 163, 61, 0.35);   /* required property: box-shadow */
+}
+
+/* pseudo-class selector: hover state */
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  transform: translateY(-2px) scale(1.02);           /* required property: transform */
+  box-shadow: 0 10px 24px rgba(232, 163, 61, 0.45);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--ink);
+  color: var(--ink);
+  width: 100%;
+  text-align: center;
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn--disabled,
+.btn--disabled:hover {
+  opacity: 0.45;                                     /* required property: opacity */
+  background: transparent;
+  border-color: var(--text-mute);
+  color: var(--text-mute);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---------- 3. HEADER (id selector + descendant + child selectors) ---------- */
+#top.site-header,
+.site-header {
+  position: sticky;      /* Beyond-normal-flow technique 1: sticky positioning */
+  top: 0;
+  z-index: 50;            /* required property companion: z-index */
+  background: rgba(22, 35, 61, 0.94);
+  backdrop-filter: blur(6px);
+}
+
+.site-header__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;                      /* Flexbox: primary nav bar layout */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--marigold);
+  color: var(--ink);
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.brand__name {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.brand__portal {
+  color: #b9c2d6;
+  font-size: 0.78rem;
+}
+
+/* Group selector: every top-level nav link shares base styling */
+.primary-nav ul {
+  list-style: none;               /* required property: list-style */
+  display: flex;
+  gap: 1.8rem;
+}
+
+/* Descendant selector */
+.primary-nav a {
+  color: #dfe4ee;
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 0.4rem 0.1rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  color: var(--marigold);
+  border-color: var(--marigold);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+
+/* Child selector: only direct span children of the toggle are bars */
+.nav-toggle > span {
+  width: 22px;
+  height: 2px;
+  background: #fff;
+}
+
+/* ---------- 4. HERO ---------- */
+.hero {
+  padding: 5rem 1.5rem 6rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;                /* required property: overflow */
+}
+
+.hero__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.hero__eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--marigold);
+  margin-bottom: 1rem;
+}
+
+.hero__title {
+  color: #fff;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  margin-bottom: 1.25rem;
+}
+
+.hero__sub {
+  color: #c7cee0;
+  max-width: 560px;
+  margin: 0 auto 2.2rem;
+  font-size: 1.02rem;
+}
+
+/* Beyond-normal-flow technique 2: absolute positioning + z-index,
+   kept clear of the CTA button and form fields so nothing is hidden. */
+.hero__stamp {
+  position: absolute;
+  top: -1.4rem;
+  right: -0.5rem;
+  z-index: 5;
+  border: 2px solid var(--marigold);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--marigold);
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .hero__stamp { display: none; } /* keep mobile hero uncluttered */
+}
+
+/* ---------- 5. SECTION HEADINGS ---------- */
+.section-head {
+  max-width: 640px;
+  margin: 0 auto 2.6rem;
+  text-align: center;
+}
+
+.section-head--left {
+  margin: 0 0 2rem;
+  text-align: left;
+}
+
+.section-head h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-head p {
+  color: var(--text-mute);
+}
+
+/* ---------- 6. EVENT CATALOGUE — CSS GRID ---------- */
+.catalogue {
+  padding: 5rem 1.5rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.ticket-grid {
+  display: grid;                                   /* Layout method: CSS Grid */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
+}
+
+/* ---------- 7. TICKET CARD — box model demo + attribute selector ---------- */
+.ticket {
+  position: relative;                 /* establishes context for .ticket__status */
+  background: #fff;
+  border: 1px solid #e3ddce;
+  border-radius: 14px;
+  padding: 1.6rem 1.4rem 0;           /* content padding — box model requirement */
+  margin-bottom: 0.2rem;              /* box model requirement */
+  box-shadow: 0 10px 30px rgba(22, 35, 61, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ticket:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 34px rgba(22, 35, 61, 0.12);
+}
+
+/* Attribute selector: any link that is explicitly marked disabled */
+a[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+.ticket__category {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--marigold);
+  margin-bottom: 0.4rem;
+}
+
+.ticket__title {
+  font-size: 1.28rem;
+  margin-bottom: 0.6rem;
+}
+
+.ticket__meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--text-mute);
+  margin-bottom: 0.3rem;
+}
+
+.ticket__desc {
+  font-size: 0.92rem;
+  color: var(--text);
+  margin: 0.8rem 0 1.4rem;
+}
+
+/* Ticket "stub" — the perforated tear-line, cut with a repeating gradient */
+.ticket__stub {
+  border-top: 2px dashed #d8d2c0;
+  padding: 1.1rem 0;
+  position: relative;
+}
+
+/* Pseudo-element selector: circular notches on either side of the tear-line,
+   completing the "ticket stub" signature */
+.ticket__stub::before,
+.ticket__stub::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  background: var(--paper);
+  border-radius: 50%;
+  border: 1px solid #e3ddce;
+}
+
+.ticket__stub::before { left: -1.4rem; }
+.ticket__stub::after  { right: -1.4rem; }
+
+/* Status badge: absolute positioning + z-index (kept inside the card,
+   overlapping only the empty corner, never form fields or card text) */
+.ticket__status {
+  position: absolute;
+  top: -0.7rem;
+  right: 1.1rem;
+  z-index: 2;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  color: #fff;
+}
+
+.ticket__status--open     { background: var(--leaf); }
+.ticket__status--filling  { background: var(--amber); }
+.ticket__status--closed   { background: var(--rust); }
+
+/* ---------- 8. REGISTRATION FORM ---------- */
+.register {
+  background: var(--ink);
+  padding: 5rem 1.5rem;
+}
+
+.register__panel {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--paper);
+  border-radius: 18px;
+  padding: 2.6rem;
+}
+
+.register__panel .section-head h2,
+.register__panel .section-head p {
+  color: var(--ink);
+}
+.register__panel .section-head p { color: var(--text-mute); }
+
+.register-form {
+  display: grid;                       /* Grid used again, in form layout context */
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.4rem;
+}
+
+.field--wide { grid-column: 1 / -1; }
+
+.field label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #cfc8b4;
+  border-radius: 8px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--marigold);
+  box-shadow: 0 0 0 3px rgba(232, 163, 61, 0.25);
+}
+
+.register-form .btn--primary {
+  border: none;
+  margin-top: 0.4rem;
+}
+
+/* ---------- 9. FOOTER ---------- */
+.site-footer {
+  background: var(--ink-soft);
+  color: #c7cee0;
+  padding: 3.4rem 1.5rem 1.6rem;
+}
+
+.site-footer__inner {
+  max-width: 1180px;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: space-between;
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-family: "Work Sans", sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.7rem;
+}
+
+.footer-col p {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.brand__mark--footer {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--marigold);
+}
+
+.site-footer__copy {
+  max-width: 1180px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 1.2rem;
+  font-size: 0.8rem;
+  color: #8f9ab3;
+}
+
+/* ============================================================
+   10. RESPONSIVE DESIGN
+   Breakpoints tested at ~1024px (tablet) and ~375px (mobile, per brief)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .ticket-grid {
+    grid-template-columns: repeat(2, 1fr); /* two columns on tablets */
+  }
+}
+
+@media (max-width: 720px) {
+  .primary-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--ink);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .primary-nav.is-open {
+    max-height: 260px;
+  }
+
+  .primary-nav ul {
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .register-form {
+    grid-template-columns: 1fr;   /* single column on smaller screens */
+  }
+
+  .field--wide { grid-column: 1; }
+}
+
+@media (max-width: 480px) {
+  .ticket-grid {
+    grid-template-columns: 1fr;   /* single column on mobile, per brief */
+  }
+
+  .hero {
+    padding: 3.4rem 1.2rem 3.6rem;
+  }
+
+  .register__panel {
+    padding: 1.8rem 1.4rem;
+  }
+
+  .site-footer__inner {
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+}
